@@ -45,12 +45,6 @@ app.post('/users', (req, res) => {
   return res.status(201).json(user)
 });
 
-app.get('/todos', checksExistsUserAccount, (req, res) => {
-  const user = req;
-
-  return res.json(user.todos);
-});
-
 app.post('/todos', checksExistsUserAccount, (req, res) => {
   const {user} = req;
   const {title, deadline} = req.body;
@@ -66,6 +60,12 @@ app.post('/todos', checksExistsUserAccount, (req, res) => {
   user.todos.push(todo);
 
   return res.status(201).json(todo)
+});
+
+app.get('/todos', checksExistsUserAccount, (req, res) => {
+  const {user} = req;
+
+  return res.json(user.todos);
 });
 
 app.put('/todos/:id', checksExistsUserAccount, (req, res) => {
